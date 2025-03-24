@@ -16,5 +16,5 @@ class Store extends Model
         'type',
         'status',
         'storeowner_id'
-    ]
+    ];
 }
