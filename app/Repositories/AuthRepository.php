@@ -17,4 +17,10 @@ class AuthRepository implements AuthRepositoryInterface
             'role' => $data['role'],
         ]);
     }
+
+    
+    public function findUserByEmail(string $email)
+    {
+        return User::where('email', $email)->first();
+    }
 }
