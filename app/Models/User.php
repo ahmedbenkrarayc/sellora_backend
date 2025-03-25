@@ -6,9 +6,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use App\Models\Store;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -19,9 +20,13 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'fname',
+        'lname',
         'email',
         'password',
+        'role',
+        'reset_token',
+        'reset_token_expires_at'
     ];
 
     /**
@@ -44,6 +49,18 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+        ];
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [
+            'role' => $this->role,
         ];
     }
 
