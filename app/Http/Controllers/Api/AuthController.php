@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
+use App\Http\Requests\Auth\ResetPasswordRequest;
 
 class AuthController extends Controller
 {
@@ -87,13 +88,9 @@ class AuthController extends Controller
         return response()->json($response);
     }
 
-    public function resetPassword(Request $request)
+    public function resetPassword(ResetPasswordRequest $request)
     {
-        $request->validate([
-            'email' => 'required|email|exists:users,email',
-            'reset_token' => 'required|string',
-            'password' => 'required|min:6|confirmed',
-        ]);
+        $request->validated();
 
         $response = $this->authService->resetPassword(
             $request->email,
