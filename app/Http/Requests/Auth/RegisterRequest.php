@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
@@ -23,12 +23,18 @@ class RegisterRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'fname' => ['required', 'string', 'max:255'],
             'lname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Password::default()],
-            'role' => ['required', Rule::in(['recruiter', 'candidate', 'admin'])]
+            'role' => ['required', Rule::in(['superadmin', 'storeowner', 'customer'])]
         ];
+
+        if ($this->input('role') === 'customer') {
+            $rules['store_id'] = ['required', 'string', 'max:255', 'unique:store,subdomain'];
+        }
+
+        return $rules;
     }
 }
