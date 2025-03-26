@@ -27,4 +27,9 @@ class AuthRepository implements IAuthRepository
         $user->reset_token_expires_at = $expiresAt;
         return $user->save();
     }
+
+    public function updatePassword(User $user, string $newPassword){
+        $user->password = $newPassword;
+        return $user->save();
+    }
 }
