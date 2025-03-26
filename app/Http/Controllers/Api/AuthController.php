@@ -7,6 +7,7 @@ use App\Services\AuthService;
 use Illuminate\Http\Request;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\ForgotPasswordRequest;
 
 class AuthController extends Controller
 {
@@ -78,10 +79,10 @@ class AuthController extends Controller
         return response()->json(auth()->user());
     }
 
-    public function forgotPassword(Request $request)
+    public function forgotPassword(ForgotPasswordRequest $request)
     {
-        $request->validate(['email' => 'required|email|exists:users,email']);
-        $response = $this->authService->forgotPassword($request->email);
+        $request->validated();
+        $response = $this->authService->forgotPassword($request->email, $request->url);
 
         return response()->json($response);
     }

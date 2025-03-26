@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 use App\Models\Customer;
 use Illuminate\Support\Str;
+use App\Mail\ResetPasswordMail;
 
 class AuthService
 {
@@ -59,7 +60,7 @@ class AuthService
         }
     }
 
-    public function forgotPassword(string $email){
+    public function forgotPassword(string $email, string $url){
         $user = $this->authRepository->findUserByEmail($email);
 
         if(!$user){
@@ -71,10 +72,8 @@ class AuthService
 
         $this->authRepository->updateResetToken($user, $resetToken, $expiresAt);
 
-        Mail::raw("Your password reset code is: $resetToken", function ($message) use ($user) {
-            $message->to($user->email)
-                ->subject('Password Reset Code');
-        });
+        $link = $url.'/'.$resetToken;
+        Mail::to($user->email)->send(new ResetPasswordMail($link));
 
         return ['message' => 'Reset code sent to email'];
     }
