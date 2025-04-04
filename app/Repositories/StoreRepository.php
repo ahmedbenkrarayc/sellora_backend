@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Repositories\Interfaces\IStoreRepository;
 use App\Models\Store;
 
-class AuthRepository implements IAuthRepository{
+class StoreRepository implements IStoreRepository{
 
     public function getAll(){
         $stores = Store::with('customers', 'storeowner', 'categories.subcategories')->get();
