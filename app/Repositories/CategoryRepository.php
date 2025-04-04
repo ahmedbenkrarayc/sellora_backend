@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Repositories\Interfaces\ICategoryRepository;
 use App\Models\Category;
 
 class CategoryRepository implements ICategoryRepository
