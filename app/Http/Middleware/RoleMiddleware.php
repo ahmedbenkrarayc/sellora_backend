@@ -14,12 +14,12 @@ class RoleMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $role): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
         try {
             $user = JWTAuth::parseToken()->authenticate();
 
-            if (!$user || $user->role !== $role) {
+            if (!$user || !in_array($user->role, $roles)) {
                 return response()->json(['error' => 'Forbidden'], Response::HTTP_FORBIDDEN);
             }
 
