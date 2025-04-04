@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Repositories\Interfaces;
-use App\Models\User;
 
 interface ICategoryRepository{
     public function all();
