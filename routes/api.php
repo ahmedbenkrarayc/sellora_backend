@@ -28,7 +28,7 @@ Route::prefix('/stores')->group(function(){
 Route::prefix('/categories')->group(function(){
     Route::get('/', [CategoryController::class, 'index']);
     Route::get('/{id}', [CategoryController::class, 'show']);
-    Route::post('/', [CategoryController::class, 'store']);
-    Route::put('/{id}', [CategoryController::class, 'update']);
-    Route::delete('/{id}', [CategoryController::class, 'destroy']);
+    Route::post('/', [CategoryController::class, 'store'])->middleware(['jwt.api', 'role:storeowner']);
+    Route::put('/{id}', [CategoryController::class, 'update'])->middleware(['jwt.api', 'role:storeowner']);
+    Route::delete('/{id}', [CategoryController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner']);
 });
