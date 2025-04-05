@@ -13,6 +13,8 @@ use App\Repositories\Interfaces\ISubcategoryRepository;
 use App\Repositories\SubcategoryRepository;
 use App\Repositories\Interfaces\IProductRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\Interfaces\IProductDetailsRepository;
+use App\Repositories\ProductDetailsRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ICategoryRepository::class, CategoryRepository::class);
         $this->app->bind(ISubcategoryRepository::class, SubcategoryRepository::class);
         $this->app->bind(IProductRepository::class, ProductRepository::class);
+        $this->app->bind(IProductDetailsRepository::class, ProductDetailsRepository::class);
     }
 
     /**
