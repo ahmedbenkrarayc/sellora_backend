@@ -14,6 +14,7 @@ class Category extends Model
         'status',
         'store_id'
     ];
+    public $timestamps = false;
 
     public function store(){
         return $this->belongsTo(Store::class, 'store_id');
