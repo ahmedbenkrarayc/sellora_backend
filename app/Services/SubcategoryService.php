@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Repositories\ISubcategoryRepository;
+use App\Repositories\Interfaces\ISubcategoryRepository;
 
 class SubcategoryService
 {
