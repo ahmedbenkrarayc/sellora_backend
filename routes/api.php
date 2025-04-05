@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\StoreController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\SubcategoryController;
+use App\Http\Controllers\Api\ProductController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -40,4 +41,12 @@ Route::prefix('/subcategories')->group(function(){
     Route::post('/', [SubcategoryController::class, 'store'])->middleware(['jwt.api', 'role:storeowner']);
     Route::put('/{id}', [SubcategoryController::class, 'update'])->middleware(['jwt.api', 'role:storeowner']);
     Route::delete('/{id}', [SubcategoryController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner']);
+});
+
+Route::prefix('/products')->group(function(){
+    Route::get('/', [ProductController::class, 'index']);
+    Route::get('/{id}', [ProductController::class, 'show']);
+    Route::post('/', [ProductController::class, 'store'])->middleware(['jwt.api', 'role:storeowner']);
+    Route::put('/{id}', [ProductController::class, 'update'])->middleware(['jwt.api', 'role:storeowner']);
+    Route::delete('/{id}', [ProductController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner,superadmin']);
 });
