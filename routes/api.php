@@ -50,3 +50,9 @@ Route::prefix('/products')->group(function(){
     Route::put('/{id}', [ProductController::class, 'update'])->middleware(['jwt.api', 'role:storeowner']);
     Route::delete('/{id}', [ProductController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner,superadmin']);
 });
+
+Route::prefix('/productdetails')->group(function(){
+    Route::post('/', [ProductDetailsController::class, 'store'])->middleware(['jwt.api', 'role:storeowner']);
+    Route::put('/{id}', [ProductDetailsController::class, 'update'])->middleware(['jwt.api', 'role:storeowner']);
+    Route::delete('/{id}', [ProductDetailsController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner']);
+});
