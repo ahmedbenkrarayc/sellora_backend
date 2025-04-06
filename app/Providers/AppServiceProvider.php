@@ -15,6 +15,8 @@ use App\Repositories\Interfaces\IProductRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\Interfaces\IProductDetailsRepository;
 use App\Repositories\ProductDetailsRepository;
+use App\Repositories\Interfaces\IColorRepository;
+use App\Repositories\ColorRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ISubcategoryRepository::class, SubcategoryRepository::class);
         $this->app->bind(IProductRepository::class, ProductRepository::class);
         $this->app->bind(IProductDetailsRepository::class, ProductDetailsRepository::class);
+        $this->app->bind(IColorRepository::class, ColorRepository::class);
     }
 
     /**
