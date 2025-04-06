@@ -25,6 +25,10 @@ use App\Repositories\Interfaces\IProductVariantImageRepository;
 use App\Repositories\ProductVariantImageRepository;
 use App\Repositories\Interfaces\IWishListRepository;
 use App\Repositories\WishListRepository;
+use App\Repositories\Interfaces\IOrderRepository;
+use App\Repositories\OrderRepository;
+use App\Repositories\Interfaces\IPaymentRepository;
+use App\Repositories\PaymentRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -44,6 +48,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(IProductVariantRepository::class, ProductVariantRepository::class);
         $this->app->bind(IProductVariantImageRepository::class, ProductVariantImageRepository::class);
         $this->app->bind(IWishListRepository::class, WishListRepository::class);
+        $this->app->bind(IOrderRepository::class, OrderRepository::class);
+        $this->app->bind(IPaymentRepository::class, PaymentRepository::class);
     }
 
     /**
