@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\SubcategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ColorController;
 use App\Http\Controllers\Api\SizeController;
+use App\Http\Controllers\Api\ProductVariantController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -69,4 +70,12 @@ Route::prefix('/sizes')->group(function(){
     Route::post('/', [SizeController::class, 'store'])->middleware(['jwt.api', 'role:storeowner']);
     Route::get('/{id}', [SizeController::class, 'show'])->middleware(['jwt.api', 'role:storeowner']);
     Route::delete('/{id}', [SizeController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner']);
+});
+
+Route::prefix('productvariants')->group(function () {
+    Route::get('/', [ProductVariantController::class, 'index']);
+    Route::get('{id}', [ProductVariantController::class, 'show']);
+    Route::post('/', [ProductVariantController::class, 'store'])->middleware(['jwt.api', 'role:storeowner']);;
+    Route::put('{id}', [ProductVariantController::class, 'update'])->middleware(['jwt.api', 'role:storeowner']);;
+    Route::delete('{id}', [ProductVariantController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner']);;
 });
