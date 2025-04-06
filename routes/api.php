@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\ColorController;
 use App\Http\Controllers\Api\SizeController;
 use App\Http\Controllers\Api\ProductVariantController;
 use App\Http\Controllers\Api\ProductVariantImageController;
+use App\Http\Controllers\Api\WishListController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -18,7 +19,7 @@ Route::post('/refresh', [AuthController::class, 'refresh'])->middleware('jwt.ref
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
-Route::middleware(['jwt.api'])->group(function () {
+Route::middleware(['jwt.api'])->group(function(){
     Route::get('/user', [AuthController::class, 'user']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
@@ -73,15 +74,21 @@ Route::prefix('/sizes')->group(function(){
     Route::delete('/{id}', [SizeController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner']);
 });
 
-Route::prefix('productvariants')->group(function () {
+Route::prefix('productvariants')->group(function(){
     Route::get('/', [ProductVariantController::class, 'index']);
-    Route::get('{id}', [ProductVariantController::class, 'show']);
+    Route::get('/{id}', [ProductVariantController::class, 'show']);
     Route::post('/', [ProductVariantController::class, 'store'])->middleware(['jwt.api', 'role:storeowner']);
-    Route::put('{id}', [ProductVariantController::class, 'update'])->middleware(['jwt.api', 'role:storeowner']);
-    Route::delete('{id}', [ProductVariantController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner']);
+    Route::put('/{id}', [ProductVariantController::class, 'update'])->middleware(['jwt.api', 'role:storeowner']);
+    Route::delete('/{id}', [ProductVariantController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner']);
 });
 
-Route::prefix('productvariantimages')->group(function () {
+Route::prefix('productvariantimages')->group(function(){
     Route::post('/', [ProductVariantImageController::class, 'store'])->middleware(['jwt.api', 'role:storeowner']);
     Route::delete('{id}', [ProductVariantImageController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner']);
+});
+
+Route::prefix('wishlist')->group(function(){
+    Route::get('/{id}', [WishListController::class, 'index'])->middleware(['jwt.api', 'role:customer']);
+    Route::post('/', [WishListController::class, 'store'])->middleware(['jwt.api', 'role:customer']);
+    Route::delete('/{id}', [WishListController::class, 'destroy'])->middleware(['jwt.api', 'role:customer']);
 });
