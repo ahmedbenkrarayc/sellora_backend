@@ -7,5 +7,5 @@ interface IOrderRepository{
     public function findById(int $id);
     public function updateStatus(int $id, string $status);
     public function delete(int $id);
-    public function all();
+    public function all(int $store_id);
 }
