@@ -19,6 +19,8 @@ use App\Repositories\Interfaces\IColorRepository;
 use App\Repositories\ColorRepository;
 use App\Repositories\Interfaces\ISizeRepository;
 use App\Repositories\SizeRepository;
+use App\Repositories\Interfaces\IProductVariantRepository;
+use App\Repositories\ProductVariantRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(IProductDetailsRepository::class, ProductDetailsRepository::class);
         $this->app->bind(IColorRepository::class, ColorRepository::class);
         $this->app->bind(ISizeRepository::class, SizeRepository::class);
+        $this->app->bind(IProductVariantRepository::class, ProductVariantRepository::class);
     }
 
     /**
