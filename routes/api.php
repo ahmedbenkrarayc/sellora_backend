@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\ProductVariantController;
 use App\Http\Controllers\Api\ProductVariantImageController;
 use App\Http\Controllers\Api\WishListController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\PaymentController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -100,4 +101,9 @@ Route::prefix('orders')->group(function(){
     Route::get('/{id}', [OrderController::class, 'show'])->middleware(['jwt.api', 'role:storeowner,customer']);
     Route::put('/{id}', [OrderController::class, 'updateStatus'])->middleware(['jwt.api', 'role:storeowner']);
     Route::delete('/{id}', [OrderController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner']);
+});
+
+Route::prefix('orderpayment')->group(function(){
+    Route::post('/', [PaymentController::class, 'store'])->middleware(['jwt.api', 'role:storeowner']);
+    Route::get('/', [PaymentController::class, 'getAllPayments'])->middleware(['jwt.api', 'role:storeowner']);
 });
