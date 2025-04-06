@@ -30,8 +30,14 @@ class OrderRepository implements IOrderRepository
         return Order::destroy($id);
     }
 
-    public function all()
+    public function all(int $store_id)
     {
-        return Order::with('productvariants')->get();
+        $orders = Order::with('productvariants')
+        ->whereHas('productvariants.product.subcategory.category.store', function ($query) use ($store_id) {
+            $query->where('store_id', $store_id);
+        })
+        ->get();
+        
+        return $orders;
     }
 }

@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\SizeController;
 use App\Http\Controllers\Api\ProductVariantController;
 use App\Http\Controllers\Api\ProductVariantImageController;
 use App\Http\Controllers\Api\WishListController;
+use App\Http\Controllers\Api\OrderController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -91,4 +92,12 @@ Route::prefix('wishlist')->group(function(){
     Route::get('/{id}', [WishListController::class, 'index'])->middleware(['jwt.api', 'role:customer']);
     Route::post('/', [WishListController::class, 'store'])->middleware(['jwt.api', 'role:customer']);
     Route::delete('/{id}', [WishListController::class, 'destroy'])->middleware(['jwt.api', 'role:customer']);
+});
+
+Route::prefix('orders')->group(function(){
+    Route::get('/{store_id}', [OrderController::class, 'index'])->middleware(['jwt.api', 'role:storeowner']);
+    Route::post('/', [OrderController::class, 'store'])->middleware(['jwt.api', 'role:customer']);
+    Route::get('/{id}', [OrderController::class, 'show'])->middleware(['jwt.api', 'role:storeowner,customer']);
+    Route::put('/{id}', [OrderController::class, 'updateStatus'])->middleware(['jwt.api', 'role:storeowner']);
+    Route::delete('/{id}', [OrderController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner']);
 });

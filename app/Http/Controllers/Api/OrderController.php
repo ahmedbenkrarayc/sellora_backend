@@ -17,9 +17,9 @@ class OrderController extends Controller
         $this->orderService = $orderService;
     }
 
-    public function index()
+    public function index($store_id)
     {
-        return response()->json($this->orderService->getAll());
+        return response()->json($this->orderService->getAll($store_id));
     }
 
     public function store(StoreOrderRequest $request)
