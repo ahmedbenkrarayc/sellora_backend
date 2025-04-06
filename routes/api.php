@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\SubcategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ColorController;
+use App\Http\Controllers\Api\SizeController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -62,4 +63,10 @@ Route::prefix('/colors')->group(function(){
     Route::post('/', [ColorController::class, 'store'])->middleware(['jwt.api', 'role:storeowner']);
     Route::get('/{id}', [ColorController::class, 'show'])->middleware(['jwt.api', 'role:storeowner']);
     Route::delete('/{id}', [ColorController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner']);
+});
+
+Route::prefix('/sizes')->group(function(){
+    Route::post('/', [SizeController::class, 'store'])->middleware(['jwt.api', 'role:storeowner']);
+    Route::get('/{id}', [SizeController::class, 'show'])->middleware(['jwt.api', 'role:storeowner']);
+    Route::delete('/{id}', [SizeController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner']);
 });

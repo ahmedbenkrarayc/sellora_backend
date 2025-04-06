@@ -25,7 +25,7 @@ class ColorController extends Controller
     public function destroy(Request $request, $id)
     {
         $this->colorService->delete($id);
-        return response()->json(['message' => 'Color deleted successfully.']);
+        return response()->json([], 204);
     }
 
     public function show($id)
