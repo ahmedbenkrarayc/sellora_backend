@@ -71,8 +71,8 @@ class AuthController extends Controller
             'message' => 'Authenticated',
             'user' => auth()->user(),
         ])
-        ->cookie('token', $token, 60, '/', null, true, true, false, 'Strict') // 1 hour
-        ->cookie('refresh_token', $refreshToken, 20160, '/', null, true, true, false, 'Strict'); // 14 days
+        ->cookie('token', $token, 60, '/', '.sellora.local', false, true, false, 'Strict')
+        ->cookie('refresh_token', $refreshToken, 20160, '/', '.sellora.local', false, true, false, 'Strict');
     }
 
     public function user(Request $request)

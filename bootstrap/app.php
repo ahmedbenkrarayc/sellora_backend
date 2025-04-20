@@ -20,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'jwt.refreshtoken' => JwtRefreshMiddleware::class,
             'role' => RoleMiddleware::class,
         ]);
+        $middleware->append(\Illuminate\Http\Middleware\HandleCors::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
