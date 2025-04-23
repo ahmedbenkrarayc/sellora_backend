@@ -27,6 +27,14 @@ class StoreController extends Controller
         return response()->json($this->storeService->getStoreById($id));
     }
 
+    public function showbysubdomain($subdomain)
+    {
+        $store = $this->storeService->getStoreBySubdomain($subdomain);
+        if($store)
+            return response()->json($store);
+        return response()->json([], 404);
+    }
+
     public function store(CreateStoreRequest $request)
     {
         $data = $request->validated();
