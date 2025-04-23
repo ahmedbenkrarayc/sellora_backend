@@ -8,12 +8,17 @@ use App\Models\Store;
 class StoreRepository implements IStoreRepository{
 
     public function getAll(){
-        $stores = Store::with('customers', 'storeowner', 'categories.subcategories')->get();
+        $stores = Store::with('customers', 'categories.subcategories')->get();
         return $stores;
     }
 
     public function findById(int $id){
-        $store = Store::with('storeowner', 'storeowner', 'categories.subcategories')->findOrFail($id);
+        $store = Store::with('storeowner', 'categories.subcategories')->findOrFail($id);
+        return $store;
+    }
+
+    public function findBySubdomain(string $subdomain){
+        $store = Store::with('storeowner', 'categories.subcategories')->where('subdomain', $subdomain)->first();
         return $store;
     }
 
