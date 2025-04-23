@@ -28,6 +28,7 @@ Route::middleware(['jwt.api'])->group(function(){
 
 Route::prefix('/stores')->group(function(){
     Route::get('/{id}', [StoreController::class, 'show']);//everyone
+    Route::get('/subdomain/{subdomain}', [StoreController::class, 'showbysubdomain']);//everyone
     Route::get('/', [StoreController::class, 'index'])->middleware(['jwt.api', 'role:storeowner']);
     Route::post('/', [StoreController::class, 'store'])->middleware(['jwt.api', 'role:storeowner']);
     Route::put('/{id}', [StoreController::class, 'update'])->middleware(['jwt.api', 'role:storeowner,superadmin']);
