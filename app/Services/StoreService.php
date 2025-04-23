@@ -25,6 +25,11 @@ class StoreService
         return $this->storeRepository->findById($id);
     }
 
+    public function getStoreBySubdomain(string $subdomain)
+    {
+        return $this->storeRepository->findBySubdomain($subdomain);
+    }
+
     public function createStore(array $data)
     {
         $logoPath = null;
