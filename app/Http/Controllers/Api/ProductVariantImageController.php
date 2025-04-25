@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductVariantImage\StoreProductVariantImageRequest;
 use App\Services\ProductVariantImageService;
 use Illuminate\Http\Request;

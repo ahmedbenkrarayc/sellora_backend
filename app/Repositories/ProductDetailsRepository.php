@@ -9,18 +9,18 @@ class ProductDetailsRepository implements IProductDetailsRepository
 {
     public function create(array $data)
     {
-        return ProductDetail::create($data);
+        return ProductDetails::create($data);
     }
 
     public function update($id, array $data)
     {
-        $detail = ProductDetail::findOrFail($id);
+        $detail = ProductDetails::findOrFail($id);
         return $detail->update($data);
     }
 
     public function delete($id)
     {
-        $detail = ProductDetail::findOrFail($id);
+        $detail = ProductDetails::findOrFail($id);
         return $detail->delete();
     }
 }

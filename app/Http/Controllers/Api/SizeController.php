@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Color\StoreSizeRequest;
+use App\Http\Requests\Size\StoreSizeRequest;
 use App\Services\SizeService;
 
 class SizeController extends Controller

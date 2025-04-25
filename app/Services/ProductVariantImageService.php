@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\Interfaces\IProductVariantImageRepository;
+use Illuminate\Support\Str;
 
 class ProductVariantImageService
 {
@@ -18,7 +19,7 @@ class ProductVariantImageService
         $fileExtension = $file->getClientOriginalExtension();
         $uniqueFileName = Str::uuid() . '.' . $fileExtension;
         
-        $path = $file->storeAs('productimages', $uniqueFileName);
+        $path = $file->storeAs('productimages', $uniqueFileName, 'public');
 
         $data['path'] = $path;
 

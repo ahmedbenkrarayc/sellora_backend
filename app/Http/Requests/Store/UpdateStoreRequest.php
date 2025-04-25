@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Store;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateStoreRequest extends FormRequest
 {
@@ -23,7 +24,12 @@ class UpdateStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'subdomain' => 'required|string|max:255|unique:store,subdomain,' . $this->route('store'),
+            'subdomain' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('store', 'subdomain')->ignore($this->route('id'), 'id'),
+            ],
             'domain' => 'nullable|string|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'nullable|string',

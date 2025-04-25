@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\ProductVariantImageController;
 use App\Http\Controllers\Api\WishListController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\ProductDetailsController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -86,7 +87,7 @@ Route::prefix('productvariants')->group(function(){
 });
 
 Route::prefix('productvariantimages')->group(function(){
-    Route::post('/', [ProductVariantImageController::class, 'store'])->middleware(['jwt.api', 'role:storeowner']);
+    Route::post('/', [ProductVariantImageController::class, 'create'])->middleware(['jwt.api', 'role:storeowner']);
     Route::delete('{id}', [ProductVariantImageController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner']);
 });
 
