@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Services\CategoryService;
+use App\Http\Resources\Category\CategoryResource;
 
 class CategoryController extends Controller
 {
@@ -20,14 +21,14 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = $this->categoryService->getAllCategories();
-        return response()->json($categories);
+        return CategoryResource::collection($categories);
     }
 
     public function show($id)
     {
         $category = $this->categoryService->getCategoryById($id);
         if($category)
-            return response()->json($category);
+            return new CategoryResource($category);
         return response()->json(['message' => 'Category not found'], 404);
     }
 
@@ -35,7 +36,7 @@ class CategoryController extends Controller
     {
         $data = $request->validated();
         $category = $this->categoryService->createCategory($data);
-        return response()->json($category, 201);
+        return eturn (new CategoryResource($category))->response()->setStatusCode(201);;
     }
 
     public function update(UpdateCategoryRequest $request, $id)
