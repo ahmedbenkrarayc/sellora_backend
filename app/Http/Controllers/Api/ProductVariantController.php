@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProductVariant\StoreProductVariantRequest;
 use App\Http\Requests\ProductVariant\UpdateProductVariantRequest;
 use App\Services\ProductVariantService;
+use App\Http\Resources\Product\ProductVariantResource;
 
 class ProductVariantController extends Controller
 {
@@ -18,7 +19,8 @@ class ProductVariantController extends Controller
 
     public function index()
     {
-        return response()->json($this->service->getAll());
+        $variants = $this->service->getAll();
+        return ProductVariantResource::collection($variants);
     }
 
     public function show($id)
@@ -26,7 +28,7 @@ class ProductVariantController extends Controller
         $variant = $this->service->getById($id);
 
         if($variant){
-            return response()->json($variant);
+            return new ProductVariantResource($variant);
         }
 
         return response()->json(['message' => 'Not found'], 404);
@@ -34,7 +36,9 @@ class ProductVariantController extends Controller
 
     public function store(StoreProductVariantRequest $request)
     {
-        return response()->json($this->service->create($request->validated()), 201);
+        $variant = $this->service->create($request->validated());
+
+        return (new ProductVariantResource($variant))->response()->setStatusCode(201);
     }
 
     public function update(UpdateProductVariantRequest $request, $id)
