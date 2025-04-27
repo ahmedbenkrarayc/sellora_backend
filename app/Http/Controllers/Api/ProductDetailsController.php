@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProductDetails\StoreProductDetailsRequest;
 use App\Http\Requests\ProductDetails\UpdateProductDetailsRequest;
 use App\Services\ProductDetailsService;
+use App\Http\Resources\Product\ProductDetailResource;
 
 class ProductDetailsController extends Controller
 {
@@ -20,7 +21,7 @@ class ProductDetailsController extends Controller
     public function store(StoreProductDetailsRequest $request)
     {
         $detail = $this->productDetailService->create($request->validated());
-        return response()->json($detail, 201);
+        return (new ProductDetailResource($detail))->response()->setStatusCode(201);
     }
 
     public function update(UpdateProductDetailsRequest $request, $id)
