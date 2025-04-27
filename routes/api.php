@@ -53,7 +53,7 @@ Route::prefix('/subcategories')->group(function(){
 });
 
 Route::prefix('/products')->group(function(){
-    Route::get('/', [ProductController::class, 'index']);
+    Route::get('/store/{store_id}', [ProductController::class, 'index']);
     Route::get('/{id}', [ProductController::class, 'show']);
     Route::post('/', [ProductController::class, 'store'])->middleware(['jwt.api', 'role:storeowner']);
     Route::put('/{id}', [ProductController::class, 'update'])->middleware(['jwt.api', 'role:storeowner']);

@@ -18,9 +18,9 @@ class ProductController extends Controller
         $this->productService = $productService;
     }
 
-    public function index()
+    public function index($store_id)
     {
-        $products = $this->productService->getAll();
+        $products = $this->productService->getAll($store_id);
         return ProductResource::collection($products);
     }
 
