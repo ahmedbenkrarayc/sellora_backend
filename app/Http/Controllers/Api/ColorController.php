@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Color\StoreColorRequest;
 use App\Services\ColorService;
+use App\Http\Resources\Options\ColorResource;
 
 class ColorController extends Controller
 {
@@ -19,7 +20,7 @@ class ColorController extends Controller
     public function store(StoreColorRequest $request)
     {
         $color = $this->colorService->create($request->validated());
-        return response()->json(['data' => $color, 'message' => 'Color created successfully.'], 201);
+        return (new ColorResource($color))->response()->setStatusCode(201);
     }
 
     public function destroy(Request $request, $id)
@@ -31,6 +32,6 @@ class ColorController extends Controller
     public function show($id)
     {
         $color = $this->colorService->show($id);
-        return response()->json(['data' => $color]);
+        return new ColorResource($color);
     }
 }
