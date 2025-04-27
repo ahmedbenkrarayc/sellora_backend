@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Services\ProductService;
+use App\Http\Resources\Product\ProductResource;
 
 class ProductController extends Controller
 {
@@ -19,19 +20,20 @@ class ProductController extends Controller
 
     public function index()
     {
-        return response()->json($this->productService->getAll());
+        $products = $this->productService->getAll();
+        return ProductResource::collection($products);
     }
 
     public function store(StoreProductRequest $request)
     {
         $product = $this->productService->create($request->validated());
-        return response()->json($product, 201);
+        return (new ProductResource($product))->response()->setStatusCode(201);
     }
 
     public function show($id)
     {
         $product = $this->productService->getById($id);
-        return response()->json($product);
+        return new ProductResource($product);
     }
 
     public function update(UpdateProductRequest $request, $id)
