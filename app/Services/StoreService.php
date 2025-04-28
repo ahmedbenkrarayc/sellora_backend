@@ -46,17 +46,36 @@ class StoreService
             $logoPath = $logoFile->storeAs('logos', $uniqueName, 'public');
             $data['logo'] = $logoPath;
         }
-        
+
+        Cache::store('redis')->forget('stores:all');
         return $this->storeRepository->create($data);
     }
 
     public function updateStore(int $id, array $data)
     {
-        return $this->storeRepository->update($id, $data);
+        $store = $this->storeRepository->update($id, $data);
+
+        Cache::store('redis')->forget('stores:all');
+        Cache::store('redis')->forget("stores:{$id}");
+        if ($store) {
+            Cache::store('redis')->forget("stores:subdomain:{$store->subdomain}");
+        }
+
+        return $store;
     }
 
     public function deleteStore(int $id)
     {
-        return $this->storeRepository->delete($id);
+        $store = $this->storeRepository->findById($id);
+        $deleted = $this->storeRepository->delete($id);
+        if($deleted){
+            Cache::store('redis')->forget('stores:all');
+            Cache::store('redis')->forget("stores:{$id}");
+            if($store){
+                Cache::store('redis')->forget("stores:subdomain:{$store->subdomain}");
+            }
+        }
+
+        return $deleted;
     }
 }
