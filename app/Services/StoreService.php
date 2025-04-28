@@ -25,7 +25,9 @@ class StoreService
 
     public function getStoreById(int $id)
     {
-        return $this->storeRepository->findById($id);
+        return Cache::store('redis')->rememberForever("stores:{$id}", function () use ($id) {
+            return $this->storeRepository->findById($id);
+        });
     }
 
     public function getStoreBySubdomain(string $subdomain)
