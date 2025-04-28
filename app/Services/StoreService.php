@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\Interfaces\IStoreRepository;
 use Illuminate\Support\Str;
 use App\Models\Store;
+use Illuminate\Support\Facades\Cache;
 
 class StoreService
 {
@@ -17,7 +18,9 @@ class StoreService
 
     public function getAllStores()
     {
-        return $this->storeRepository->getAll();
+        return Cache::store('redis')->rememberForever('stores:all', function () {
+            return $this->storeRepository->getAll();
+        });
     }
 
     public function getStoreById(int $id)
