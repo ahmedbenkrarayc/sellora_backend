@@ -18,7 +18,7 @@ class StoreRepository implements IStoreRepository{
     }
 
     public function findBySubdomain(string $subdomain){
-        $store = Store::with('storeowner', 'categories.subcategories')->where('subdomain', $subdomain)->first();
+        $store = Store::with('storeowner', 'categories.subcategories', 'customers')->where('subdomain', $subdomain)->first();
         return $store;
     }
 
