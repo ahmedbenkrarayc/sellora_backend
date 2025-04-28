@@ -32,7 +32,9 @@ class StoreService
 
     public function getStoreBySubdomain(string $subdomain)
     {
-        return $this->storeRepository->findBySubdomain($subdomain);
+        return Cache::store('redis')->rememberForever("stores:subdomain:{$subdomain}", function () use ($subdomain) {
+            return $this->storeRepository->findBySubdomain($subdomain);
+        });
     }
 
     public function createStore(array $data)
