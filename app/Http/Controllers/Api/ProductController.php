@@ -47,4 +47,9 @@ class ProductController extends Controller
         $this->productService->delete($id);
         return response()->json(['message' => 'Deleted successfully']);
     }
+
+    public function curratedPicks($store_id){
+        $products = $this->productService->curratedPicks($store_id);
+        return ProductResource::collection($products);
+    }
 }

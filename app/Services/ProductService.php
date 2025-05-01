@@ -37,4 +37,9 @@ class ProductService
     {
         return $this->productRepository->delete($id);
     }
+
+    public function curratedPicks($store_id)
+    {
+        return $this->productRepository->curratedPicks($store_id);
+    }
 }

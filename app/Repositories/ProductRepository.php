@@ -48,4 +48,22 @@ class ProductRepository implements IProductRepository
         $product = Product::findOrFail($id);
         return $product->delete();
     }
+
+    public function curratedPicks($store_id)
+    {
+        $limit = 10;
+        return Product::with([
+            'subcategory.category', 
+            'productdetails', 
+            'productvariants.color', 
+            'productvariants.size', 
+            'productvariants.images'
+        ])
+        ->whereHas('subcategory.category', function ($query) use ($store_id) {
+            $query->where('store_id', $store_id);
+        })
+        ->inRandomOrder()
+        ->limit($limit)
+        ->get();
+    }
 }
