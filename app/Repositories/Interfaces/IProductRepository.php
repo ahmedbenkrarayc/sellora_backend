@@ -9,4 +9,5 @@ interface IProductRepository{
     public function update(int $id, array $data);
     public function delete(int $id);
     public function curratedPicks(int $store_id);
+    public function getLatestProducts(int $store_id);
 }

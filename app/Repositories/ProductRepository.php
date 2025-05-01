@@ -66,4 +66,23 @@ class ProductRepository implements IProductRepository
         ->limit($limit)
         ->get();
     }
+
+    public function getLatestProducts($store_id)
+    {
+        $limit = 10;
+        return Product::with([
+            'subcategory.category', 
+            'productdetails', 
+            'productvariants.color', 
+            'productvariants.size', 
+            'productvariants.images'
+        ])
+        ->whereHas('subcategory.category', function ($query) use ($store_id) {
+            $query->where('store_id', $store_id);
+        })
+        ->orderByDesc('created_at')
+        ->limit($limit)
+        ->get();
+    }
+    
 }

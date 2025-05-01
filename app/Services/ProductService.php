@@ -42,4 +42,9 @@ class ProductService
     {
         return $this->productRepository->curratedPicks($store_id);
     }
+
+    public function getLatestProducts($store_id)
+    {
+        return $this->productRepository->getLatestProducts($store_id);
+    }
 }

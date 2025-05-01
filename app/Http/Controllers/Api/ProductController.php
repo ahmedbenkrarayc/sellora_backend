@@ -52,4 +52,9 @@ class ProductController extends Controller
         $products = $this->productService->curratedPicks($store_id);
         return ProductResource::collection($products);
     }
+
+    public function getLatestProducts($store_id){
+        $products = $this->productService->getLatestProducts($store_id);
+        return ProductResource::collection($products);
+    }
 }

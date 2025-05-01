@@ -56,6 +56,7 @@ Route::prefix('/products')->group(function(){
     Route::get('/store/{store_id}', [ProductController::class, 'index']);
     Route::get('/{id}', [ProductController::class, 'show']);
     Route::get('/curratedpicks/{store_id}', [ProductController::class, 'curratedPicks']);
+    Route::get('/latest/{store_id}', [ProductController::class, 'getLatestProducts']);
     Route::post('/', [ProductController::class, 'store'])->middleware(['jwt.api', 'role:storeowner']);
     Route::put('/{id}', [ProductController::class, 'update'])->middleware(['jwt.api', 'role:storeowner']);
     Route::delete('/{id}', [ProductController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner,superadmin']);
