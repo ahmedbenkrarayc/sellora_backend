@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Wishlist\StoreWishlistRequest;
+use App\Http\Requests\WishList\StoreWishListRequest;
 use App\Services\WishlistService;
 
 class WishListController extends Controller
@@ -23,9 +23,9 @@ class WishListController extends Controller
         return response()->json($wishlist);
     }
 
-    public function store(StoreWishlistRequest $request)
+    public function store(StoreWishListRequest $request)
     {
-        if($this->wishlistService->add($request->customer_id, $request->productvariant_id)){
+        if($this->wishlistService->addToWishList($request->customer_id, $request->productvariant_id)){
             return response()->json(['message' => 'Added to wishlist'], 201);
         }
 

@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use App\Repositories\Interfaces\IWishlistRepository;
+use App\Repositories\Interfaces\IWishListRepository;
 
 class WishlistService
 {
-    private WishlistRepositoryInterface $wishlistRepository;
+    private IWishListRepository $wishlistRepository;
 
-    public function __construct(WishlistRepositoryInterface $wishlistRepository)
+    public function __construct(IWishListRepository $wishlistRepository)
     {
         $this->wishlistRepository = $wishlistRepository;
     }

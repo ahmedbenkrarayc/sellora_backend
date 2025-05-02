@@ -3,13 +3,13 @@
 namespace App\Repositories;
 
 use App\Models\Wishlist;
-use App\Repositories\Interfaces\IWishlistRepository;
+use App\Repositories\Interfaces\IWishListRepository;
 
-class WishlistRepository implements IWishlistRepository
+class WishlistRepository implements IWishListRepository
 {
     public function findByCustomerId(int $customerId)
     {
-        return Wishlist::where('customer_id', $customerId)->with('productvariant')->get();
+        return Wishlist::where('customer_id', $customerId)->with('productvariant.product', 'productvariant.images')->get();
     }
 
     public function create(int $customerId, int $productVariantId)

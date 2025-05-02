@@ -25,7 +25,7 @@ class AuthService
         if($user->role === 'customer'){
             Customer::create([
                 'id' => $user->id,
-                'store_id' => $store_id
+                'store_id' => $data['store_id']
             ]);
         }
 
