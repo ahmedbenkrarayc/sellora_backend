@@ -32,7 +32,7 @@ class RegisterRequest extends FormRequest
         ];
 
         if ($this->input('role') === 'customer') {
-            $rules['store_id'] = ['required', 'string', 'max:255', 'unique:store,subdomain'];
+            $rules['store_id'] = ['required', 'integer', Rule::exists('store', 'id')];
         }
 
         return $rules;
