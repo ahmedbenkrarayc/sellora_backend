@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\Interfaces\IOrderRepository;
+use App\Events\OrderCreated;
 
 class OrderService
 {
@@ -21,12 +22,20 @@ class OrderService
         $order = $this->orderRepository->create($data);
 
         foreach ($productVariants as $variant) {
-            $order->productVariants()->attach($variant['id'], [
+            $order->productvariants()->attach($variant['id'], [
                 'quantity' => $variant['quantity']
             ]);
         }
 
-        return $order->load('productVariants');
+        $order = $order->load(
+            'productvariants.images', 
+            'customer.user', 
+            'customer.store.storeowner'
+        );
+
+        OrderCreated::dispatch($order);
+        
+        return $order;
     }
 
     public function getAll()
