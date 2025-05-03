@@ -15,6 +15,12 @@ use App\Http\Controllers\Api\WishListController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductDetailsController;
+use App\Events\TestBroadcastEvent;
+
+Route::get('/broadcast-test', function () {
+    broadcast(new TestBroadcastEvent('Hello from Laravel Reverb!'));
+    return ['status' => 'Broadcast sent'];
+});
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
