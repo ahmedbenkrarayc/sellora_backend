@@ -106,7 +106,7 @@ Route::prefix('wishlist')->group(function(){
 });
 
 Route::prefix('orders')->group(function(){
-    Route::get('/{store_id}', [OrderController::class, 'index'])->middleware(['jwt.api', 'role:storeowner']);
+    Route::get('/store/{store_id}', [OrderController::class, 'index'])->middleware(['jwt.api', 'role:storeowner']);
     Route::post('/', [OrderController::class, 'store'])->middleware(['jwt.api', 'role:customer']);
     Route::get('/{id}', [OrderController::class, 'show'])->middleware(['jwt.api', 'role:storeowner,customer']);
     Route::put('/{id}', [OrderController::class, 'updateStatus'])->middleware(['jwt.api', 'role:storeowner']);
