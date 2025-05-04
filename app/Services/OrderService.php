@@ -38,9 +38,15 @@ class OrderService
         return $order;
     }
 
-    public function getAll()
+    public function getAll($store_id)
     {
-        return $this->orderRepository->all();
+        $orders = $this->orderRepository->all($store_id);
+        $orders->load(            
+            'productvariants.images', 
+            'customer.user', 
+            'customer.store.storeowner'
+        );
+        return $orders;
     }
 
     public function getById($id)
