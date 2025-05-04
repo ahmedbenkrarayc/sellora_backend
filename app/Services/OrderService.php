@@ -37,7 +37,6 @@ class OrderService
 
         OrderCreated::dispatch($order);
         broadcast(new RealTimeOrderCreated($order));
-        broadcast(new RealTimeOrderStatusUpdated($order));
         return $order;
     }
 
@@ -64,6 +63,13 @@ class OrderService
 
     public function updateStatus($id, $status)
     {
-        return $this->orderRepository->updateStatus($id, $status);
+        $order = $this->orderRepository->updateStatus($id, $status);
+        $orders->load(            
+            'productvariants.images', 
+            'customer.user', 
+            'customer.store.storeowner'
+        );
+        broadcast(new RealTimeOrderStatusUpdated($order));
+        return $order;
     }
 }
