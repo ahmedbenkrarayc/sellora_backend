@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Repositories\Interfaces\IOrderRepository;
 use App\Events\OrderCreated;
+use App\Events\RealTimeOrderCreated;
+use App\Events\RealTimeOrderStatusUpdated;
 
 class OrderService
 {
@@ -34,7 +36,8 @@ class OrderService
         );
 
         OrderCreated::dispatch($order);
-        
+        broadcast(new RealTimeOrderCreated($order));
+        broadcast(new RealTimeOrderStatusUpdated($order));
         return $order;
     }
 
