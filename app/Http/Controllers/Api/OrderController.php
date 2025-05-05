@@ -22,6 +22,11 @@ class OrderController extends Controller
         return response()->json($this->orderService->getAll($store_id));
     }
 
+    public function customerOrders($customer_id)
+    {
+        return response()->json($this->orderService->ordersByCustomer($customer_id));
+    }
+
     public function store(StoreOrderRequest $request)
     {
         $order = $this->orderService->create($request->validated());
