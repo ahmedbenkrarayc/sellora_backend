@@ -28,6 +28,8 @@ Route::post('/refresh', [AuthController::class, 'refresh'])->middleware('jwt.ref
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
+Route::get('/storeowners', [AuthController::class, 'storeOwnersList'])->middleware(['jwt.api', 'role:superadmin']);
+
 Route::middleware(['jwt.api'])->group(function(){
     Route::get('/user', [AuthController::class, 'user']);
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -36,7 +38,7 @@ Route::middleware(['jwt.api'])->group(function(){
 Route::prefix('/stores')->group(function(){
     Route::get('/{id}', [StoreController::class, 'show']);//everyone
     Route::get('/subdomain/{subdomain}', [StoreController::class, 'showbysubdomain']);//everyone
-    Route::get('/', [StoreController::class, 'index'])->middleware(['jwt.api', 'role:storeowner']);
+    Route::get('/', [StoreController::class, 'index'])->middleware(['jwt.api', 'role:superadmin']);
     Route::post('/', [StoreController::class, 'store'])->middleware(['jwt.api', 'role:storeowner']);
     Route::put('/{id}', [StoreController::class, 'update'])->middleware(['jwt.api', 'role:storeowner,superadmin']);
     Route::delete('/{id}', [StoreController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner,superadmin']);
