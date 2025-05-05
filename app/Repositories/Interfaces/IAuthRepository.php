@@ -8,4 +8,5 @@ interface IAuthRepository{
     public function findUserByEmail(string $email);
     public function updateResetToken(User $user, string $resetToken, string $expiresAt);
     public function updatePassword(User $user, string $newPassword);
+    public function storeOwnersList();
 }

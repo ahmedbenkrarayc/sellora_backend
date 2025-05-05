@@ -32,4 +32,9 @@ class AuthRepository implements IAuthRepository
         $user->password = $newPassword;
         return $user->save();
     }
+
+    public function storeOwnersList(){
+        $storeowners = User::with('store')->where('role', 'storeowner')->get();
+        return $storeowners;
+    }
 }

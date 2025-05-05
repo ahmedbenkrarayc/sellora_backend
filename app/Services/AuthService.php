@@ -98,4 +98,8 @@ class AuthService
             'refresh_token' => $refreshToken
         ];
     }
+
+    public function storeOwnersList(){
+        return $this->authRepository->storeOwnersList();
+    }
 }
