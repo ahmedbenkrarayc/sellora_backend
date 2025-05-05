@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\WishListController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductDetailsController;
+use App\Http\Controllers\Api\StatisticsController;
 use App\Events\TestBroadcastEvent;
 
 Route::get('/broadcast-test', function () {
@@ -29,6 +30,8 @@ Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
 Route::get('/storeowners', [AuthController::class, 'storeOwnersList'])->middleware(['jwt.api', 'role:superadmin']);
+Route::get('/admin/statistics', [StatisticsController::class, 'adminStatistics']);
+Route::get('/storeowner/statistics/{storeId}', [StatisticsController::class, 'storeOwnerStatistics']);
 
 Route::middleware(['jwt.api'])->group(function(){
     Route::get('/user', [AuthController::class, 'user']);
