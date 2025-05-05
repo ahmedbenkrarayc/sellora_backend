@@ -40,4 +40,10 @@ class OrderRepository implements IOrderRepository
         
         return $orders;
     }
+
+    public function ordersByCustomer(int $customer_id){
+        $orders = Order::where('customer_id', $customer_id)
+        ->get();
+        return $orders;
+    }
 }
