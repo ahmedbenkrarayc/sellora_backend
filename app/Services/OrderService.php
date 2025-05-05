@@ -64,12 +64,24 @@ class OrderService
     public function updateStatus($id, $status)
     {
         $order = $this->orderRepository->updateStatus($id, $status);
+        $order->load(            
+            'productvariants.images', 
+            'customer.user', 
+            'customer.store.storeowner'
+        );
+        if($order->status != 'canceled')
+            broadcast(new RealTimeOrderStatusUpdated($order));
+        return $order;
+    }
+
+    public function ordersByCustomer($customer_id){
+        $orders = $this->orderRepository->ordersByCustomer($customer_id);
         $orders->load(            
             'productvariants.images', 
             'customer.user', 
             'customer.store.storeowner'
         );
-        broadcast(new RealTimeOrderStatusUpdated($order));
-        return $order;
+
+        return $orders;
     }
 }
