@@ -56,4 +56,13 @@ class StoreController extends Controller
     {
         return response()->json(['deleted' => $this->storeService->deleteStore($id)]);
     }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required',
+        ]);
+
+        return response()->json($this->storeService->updateStatus($id, $request->status));
+    }
 }

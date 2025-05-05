@@ -37,4 +37,10 @@ class StoreRepository implements IStoreRepository{
         $store = Store::findOrFail($id);
         return $store->delete();
     }
+
+    public function updateStatus(int $id, string $status){
+        $store = Store::findOrFail($id);
+        $store->status = $status;
+        return $store->save();;
+    }
 }

@@ -42,6 +42,7 @@ Route::prefix('/stores')->group(function(){
     Route::post('/', [StoreController::class, 'store'])->middleware(['jwt.api', 'role:storeowner']);
     Route::put('/{id}', [StoreController::class, 'update'])->middleware(['jwt.api', 'role:storeowner,superadmin']);
     Route::delete('/{id}', [StoreController::class, 'destroy'])->middleware(['jwt.api', 'role:storeowner,superadmin']);
+    Route::put('/status/{id}', [StoreController::class, 'updateStatus'])->middleware(['jwt.api', 'role:superadmin']);
 });
 
 Route::prefix('/categories')->group(function(){

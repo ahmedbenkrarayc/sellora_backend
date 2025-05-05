@@ -52,4 +52,9 @@ class StoreService
     {
         return $this->storeRepository->delete($id);
     }
+
+    public function updateStatus(int $id, string $status)
+    {
+        return $this->storeRepository->updateStatus($id, $status);
+    }
 }
