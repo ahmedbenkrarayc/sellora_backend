@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use App\Models\Store;
+use App\Models\Customer;
 use Laravel\Cashier\Billable;
 use App\Models\SubscriptionHistory;
 
@@ -73,5 +74,9 @@ class User extends Authenticatable implements JWTSubject
     public function subscriptionHistories()
     {
         return $this->hasMany(SubscriptionHistory::class, 'user_id');
+    }
+
+    public function customer(){
+        return $this->hasOne(Customer::class, 'id');
     }
 }
