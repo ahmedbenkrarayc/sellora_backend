@@ -18,7 +18,9 @@ class Store extends Model
         'description',
         'type',
         'status',
-        'storeowner_id'
+        'storeowner_id',
+        'is_active',
+        'subscribed_at'
     ];
 
     public function customers(){
