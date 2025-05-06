@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductDetailsController;
 use App\Http\Controllers\Api\StatisticsController;
+use App\Http\Controllers\Api\SubscriptionController;
 use App\Events\TestBroadcastEvent;
 
 Route::get('/broadcast-test', function () {
@@ -124,3 +125,7 @@ Route::prefix('orderpayment')->group(function(){
     Route::post('/', [PaymentController::class, 'store'])->middleware(['jwt.api', 'role:storeowner']);
     Route::get('/', [PaymentController::class, 'getAllPayments'])->middleware(['jwt.api', 'role:storeowner']);
 });
+
+Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->middleware(['jwt.api']);
+Route::post('/cancel', [SubscriptionController::class, 'cancel'])->middleware(['jwt.api']);
+Route::post('/stripe/webhook', [SubscriptionController::class, 'webhook']);
