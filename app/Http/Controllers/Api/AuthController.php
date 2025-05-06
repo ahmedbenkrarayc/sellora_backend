@@ -69,7 +69,7 @@ class AuthController extends Controller
     {
         return response()->json([
             'message' => 'Authenticated',
-            'user' => auth()->user(),
+            'user' => auth()->user()->load('store', 'customer.store'),
         ])
         ->cookie('token', $token, 60, '/', '.sellora.local', false, true, false, 'Strict')
         ->cookie('refresh_token', $refreshToken, 20160, '/', '.sellora.local', false, true, false, 'Strict');
