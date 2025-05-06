@@ -77,7 +77,9 @@ class AuthController extends Controller
 
     public function user(Request $request)
     {
-        return response()->json(auth()->user());
+        $user = auth()->user()->load('store');
+    
+        return response()->json($user);
     }
 
     public function forgotPassword(ForgotPasswordRequest $request)
