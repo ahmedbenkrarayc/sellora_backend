@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductDetailsController;
 use App\Http\Controllers\Api\StatisticsController;
 use App\Http\Controllers\Api\SubscriptionController;
+use App\Http\Controllers\Api\SubscriptionHistoryController;
 use App\Events\TestBroadcastEvent;
 
 Route::get('/broadcast-test', function () {
@@ -129,3 +130,5 @@ Route::prefix('orderpayment')->group(function(){
 Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->middleware(['jwt.api']);
 Route::post('/cancel', [SubscriptionController::class, 'cancel'])->middleware(['jwt.api']);
 Route::post('/stripe/webhook', [SubscriptionController::class, 'webhook']);
+
+Route::get('/subscription/history', [SubscriptionHistoryController::class, 'index'])->middleware(['jwt.api', 'role:superadmin']);
